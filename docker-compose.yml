@@ -1,0 +1,16 @@
+services:
+# 1. Onze Express Backend
+  backend:
+    build: ./backend       # Vertelt Docker: zoek in de map 'backend' naar de Dockerfile
+    container_name: mijn-express-backend
+    ports:
+      - "4000:3000"        # Koppel poort 3000 op je laptop aan poort 3000 in de container
+
+# 2. Onze React Frontend
+  frontend:
+    build: ./frontend     # Vertelt Docker: zoek in de map 'frontend' naar de Dockerfile
+    container_name: mijn-react-frontend
+    ports:
+      - "8080:80"        # Koppel poort 8080 op je laptop aan poort 80 in de container (nginx die draait op poort 80)
+    depends_on:
+      - backend          # Zorg ervoor dat de backend start voordat de frontend start

@@ -1,0 +1,23 @@
+# Gebruik een lichte versie van Node.js
+FROM node:20-alpine
+
+# Maak een tijdelijke directory voor de app
+WORKDIR /app
+
+# Kopieer eerst de package bestanden
+COPY package*.json .
+
+
+# Installeer de dependencies
+RUN npm install
+
+# open de poort waarop de app draait
+EXPOSE 3000
+
+# 5. Kopieer de rest van je code
+COPY . .
+
+# Start de app met het juiste command
+CMD [ "node", "src/app.js" ]
+
+

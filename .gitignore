@@ -1,0 +1,13 @@
+#node modules
+frontend/node_modules
+backend/node_modules
+
+# build output
+frontend/dist
+
+# environment variables
+frontend/.env
+frontend/.env.production
+backend/.env
+
+# database
