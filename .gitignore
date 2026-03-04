@@ -6,6 +6,7 @@ backend/node_modules
 frontend/dist
 
 # environment variables
+.env
 frontend/.env
 frontend/.env.production
 backend/.env

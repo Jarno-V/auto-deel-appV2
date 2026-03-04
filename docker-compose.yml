@@ -1,4 +1,18 @@
 services:
+#1 Onze postgres database
+  db:
+    image: postgres:latest
+    container_name: mijn-postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}       # Docker vult dit in vanuit de .env file
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5431:5432"
+    volumes:
+      - deelauto-pgdata:/var/lib/postgresql
+
 # 1. Onze Express Backend
   backend:
     build: ./backend       # Vertelt Docker: zoek in de map 'backend' naar de Dockerfile
@@ -11,6 +25,9 @@ services:
     build: ./frontend     # Vertelt Docker: zoek in de map 'frontend' naar de Dockerfile
     container_name: mijn-react-frontend
     ports:
-      - "8080:80"        # Koppel poort 8080 op je laptop aan poort 80 in de container (nginx die draait op poort 80)
+      - "8080:80"        # Koppel poort 8080 op je laptop aan poort 80 in de container (nginx draait op poort 80)
     depends_on:
       - backend          # Zorg ervoor dat de backend start voordat de frontend start
+
+volumes:
+  deelauto-pgdata:                # Dit is een named volume voor de database data, zodat deze behouden blijft zelfs als de container wordt verwijderd
